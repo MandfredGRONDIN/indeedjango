@@ -6,5 +6,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name='home'),
     path('', include('authentification.urls')),
-    path('job/', include('jobs.urls')),
+    path('', include('jobs.urls')),
 ]
