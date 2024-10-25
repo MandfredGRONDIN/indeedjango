@@ -47,7 +47,7 @@ class ProfileView(LoginRequiredMixin, View):
             - Récupère ou crée un objet Profile pour l'utilisateur authentifié.
             - Initialise UserUpdateForm et ProfileUpdateForm avec les données soumises.
             - Valide et enregistre les formulaires s'ils sont valides.
-            - Affiche un message de succès et redirige vers la page de profil si la mise à jour est réussie.
+            - Redirige vers la page de profil si la mise à jour est réussie.
             - Rendu du template 'profile.html' avec les formulaires si la mise à jour échoue.
     """
     login_url = '/login/'
@@ -72,7 +72,6 @@ class ProfileView(LoginRequiredMixin, View):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()  
             profile_form.save()  
-            messages.success(request, 'Votre profil a été mis à jour avec succès.')
             return redirect('profile')  
 
         return render(request, 'profile.html', {
