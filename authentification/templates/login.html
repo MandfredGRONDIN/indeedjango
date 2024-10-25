@@ -3,26 +3,30 @@
 {% block title %}Connexion{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1 class="mb-4">Connexion</h1>
-    <form method="post">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="username" class="form-label">Nom d'utilisateur</label>
-            <input type="text" name="username" class="form-control" id="username" required>
+<div class="container mt-5 mb-5">
+    <h1 class="mb-4 text-center text-primary"><i class="fas fa-user-lock"></i> Connexion</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post" class="shadow p-4 rounded bg-light">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username" class="form-label">Nom d'utilisateur</label>
+                    <input type="text" name="username" class="form-control" id="username" placeholder="Entrez votre nom d'utilisateur" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mot de passe</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Entrez votre mot de passe" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Connexion</button>
+            </form>
+            <p class="text-center mt-3">Vous n'avez pas encore de compte ? <a href="{% url 'register' %}" class="text-primary">Inscrivez-vous</a></p>
+            
+            {% if form.errors %}
+            <div class="alert alert-danger mt-3">
+                {{ form.errors }}
+            </div>
+            {% endif %}
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Mot de passe</label>
-            <input type="password" name="password" class="form-control" id="password" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Connexion</button>
-    </form>
-    <p>Vous n'avez pas encore de compte ? <a href="{% url 'register' %}">Inscrivez-vous</a></p>
-    
-    {% if form.errors %}
-    <div class="alert alert-danger mt-3">
-        {{ form.errors }}
     </div>
-    {% endif %}
 </div>
 {% endblock %}
