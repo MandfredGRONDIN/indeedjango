@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Mon Profil</h1>
+    <form method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Informations de l'utilisateur</legend>
+            {{ user_form.as_p }}
+        </fieldset>
+        <fieldset>
+            <legend>Informations du profil</legend>
+            {{ profile_form.as_p }}
+        </fieldset>
+        <button type="submit" class="btn btn-primary mt-2">Mettre à jour</button>
+    </form>
+    <a href="{% url 'home' %}" class="btn btn-secondary mt-2">Retour à l'accueil</a>
+</div>
+{% endblock %}

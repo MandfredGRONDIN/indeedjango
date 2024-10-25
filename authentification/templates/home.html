@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    {% if user.is_authenticated %}
+        <h1 class="mb-4">Bienvenue {{ user.username }} sur la plateforme de dépôt de candidatures</h1>
+        <p class="lead">Vous pouvez ici explorer les offres d'emploi, postuler à des annonces, et gérer votre profil.</p>
+        
+        <div class="mt-4">
+
+        </div>
+    {% else %}
+        <h1 class="mb-4">Bienvenue sur notre plateforme de dépôt de candidatures</h1>
+        <p class="lead">Veuillez vous <a href="{% url 'login' %}">connecter</a> pour accéder aux offres d'emploi et postuler.</p>
+        <p>Pas encore de compte ? <a href="{% url 'register' %}">Créez-en un ici</a>.</p>
+    {% endif %}
+</div>
+{% endblock %}
