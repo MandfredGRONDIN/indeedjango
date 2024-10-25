@@ -3,20 +3,32 @@
 {% block title %}Mon Profil{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1>Mon Profil</h1>
-    <form method="post">
-        {% csrf_token %}
-        <fieldset>
-            <legend>Informations de l'utilisateur</legend>
-            {{ user_form.as_p }}
-        </fieldset>
-        <fieldset>
-            <legend>Informations du profil</legend>
-            {{ profile_form.as_p }}
-        </fieldset>
-        <button type="submit" class="btn btn-primary mt-2">Mettre à jour</button>
-    </form>
-    <a href="{% url 'home' %}" class="btn btn-secondary mt-2">Retour à l'accueil</a>
+<div class="container mt-5 mb-5 profile">
+    <div class="card shadow-lg p-4 border-0 rounded">
+        <h1 class="text-center mb-4 text-primary"><i class="fas fa-user-circle"></i> Mon Profil</h1>
+        <form method="post" class="p-3">
+            {% csrf_token %}
+            <fieldset class="border p-3 mb-4">
+                <legend class="w-auto px-2 text-primary font-weight-bold">
+                    <i class="fas fa-user"></i> Informations de l'utilisateur
+                </legend>
+                {{ user_form.as_p }}
+            </fieldset>
+            <fieldset class="border p-3 mb-4">
+                <legend class="w-auto px-2 text-primary font-weight-bold">
+                    <i class="fas fa-address-card"></i> Informations du profil
+                </legend>
+                {{ profile_form.as_p }}
+            </fieldset>
+            <div class="text-center">
+                <button type="submit" class="btn btn-success btn-lg">
+                    <i class="fas fa-save"></i> Mettre à jour
+                </button>
+                <a href="{% url 'home' %}" class="btn btn-secondary btn-lg">
+                    <i class="fas fa-arrow-left"></i> Retour à l'accueil
+                </a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}
