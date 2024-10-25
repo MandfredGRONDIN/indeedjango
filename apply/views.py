@@ -18,8 +18,13 @@ class JobApplyView(LoginRequiredMixin, View):
 
     def post(self, request, pk):
         job = get_object_or_404(Job, pk=pk)
-        profile = get_object_or_404(Profile, user=request.user)  
-
+        profile = get_object_or_404(Profile, user=request.user)
+        
+        existing_application = Application.objects.filter(job=job, profile=profile).exists()
+        
+        if existing_application:
+            return redirect('my_applications')
+        
         Application.objects.create(profile=profile, job=job)
 
         return redirect('job_list')
