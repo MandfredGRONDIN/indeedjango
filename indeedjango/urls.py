@@ -8,4 +8,5 @@ urlpatterns = [
     path('', include('authentification.urls')),
     path('', include('jobs.urls')),
     path('', include('profile.urls')),
+    path('', include('apply.urls')),
 ]

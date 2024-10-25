@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Job, JobType, Application
+from .models import Job, JobType
 
 class JobAdmin(admin.ModelAdmin):
     list_display = ('title', 'employer', 'location', 'contract_type', 'is_filled', 'published_date')
@@ -29,14 +29,5 @@ class JobTypeAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
-class ApplicationAdmin(admin.ModelAdmin):
-    list_display = ('profile', 'job', 'application_date', 'status')  
-    search_fields = ('profile__user__username', 'job__title')
-    list_filter = ('status',) 
-
-
-
-
 admin.site.register(Job, JobAdmin)
 admin.site.register(JobType, JobTypeAdmin)
-admin.site.register(Application, ApplicationAdmin)

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'authentification',
     'profile',
     'jobs',
+    'apply',
 ]
 
 MIDDLEWARE = [
