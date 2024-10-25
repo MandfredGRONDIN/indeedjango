@@ -15,3 +15,14 @@ class Application(models.Model):
 
     def __str__(self):
         return f"Candidature de {self.profile.user.username} pour {self.job.title}"
+
+    def get_status_class(self):
+        if self.status == 'submitted':
+            return 'badge-warning'
+        elif self.status == 'reviewed':
+            return 'badge-info'     
+        elif self.status == 'accepted':
+            return 'badge-success'  
+        elif self.status == 'rejected':
+            return 'badge-danger'  
+        return ''
