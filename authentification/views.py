@@ -32,6 +32,24 @@ class RegisterView(View):
         return render(request, 'register.html', {'form': form})
 
 class ProfileView(LoginRequiredMixin, View):
+    """
+    ProfileView gère l'affichage et la mise à jour du profil de l'utilisateur.
+    Attributs:
+        login_url (str): URL de redirection pour la connexion si l'utilisateur n'est pas authentifié.
+    Méthodes:
+        get(request):
+            Gère les requêtes GET pour afficher le profil de l'utilisateur.
+            - Récupère ou crée un objet Profile pour l'utilisateur authentifié.
+            - Initialise UserUpdateForm et ProfileUpdateForm avec les données de l'utilisateur.
+            - Rendu du template 'profile.html' avec les formulaires.
+        post(request):
+            Gère les requêtes POST pour mettre à jour le profil de l'utilisateur.
+            - Récupère ou crée un objet Profile pour l'utilisateur authentifié.
+            - Initialise UserUpdateForm et ProfileUpdateForm avec les données soumises.
+            - Valide et enregistre les formulaires s'ils sont valides.
+            - Affiche un message de succès et redirige vers la page de profil si la mise à jour est réussie.
+            - Rendu du template 'profile.html' avec les formulaires si la mise à jour échoue.
+    """
     login_url = '/login/'
 
     def get(self, request):
