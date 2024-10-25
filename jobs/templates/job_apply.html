@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Postuler pour {{ job.title }}</h1>
+<form method="post">
+    {% csrf_token %}
+    <p>Êtes-vous sûr de vouloir postuler à ce poste ?</p>
+    <button type="submit" class="btn btn-success">Confirmer ma candidature</button>
+</form>
+<a href="{% url 'job_detail' job.pk %}" class="btn btn-secondary">Retour aux détails de l'offre</a>
+{% endblock %}
