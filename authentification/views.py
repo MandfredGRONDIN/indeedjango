@@ -31,23 +31,33 @@ class RegisterView(View):
             return redirect('home')  
         return render(request, 'register.html', {'form': form})
 
-@login_required
-def profile_view(request):
-    profile, created = Profile.objects.get_or_create(user=request.user)
-    
-    if request.method == 'POST':
-        user_form = UserUpdateForm(request.POST, instance=request.user)
-        profile_form = ProfileUpdateForm(request.POST, instance=profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            messages.success(request, 'Votre profil a été mis à jour avec succès.')
-            return redirect('profile')
-    else:
+class ProfileView(LoginRequiredMixin, View):
+    login_url = '/login/'
+
+    def get(self, request):
+        profile, created = Profile.objects.get_or_create(user=request.user)
+        
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=profile)
 
-    return render(request, 'profile.html', {
-        'user_form': user_form,
-        'profile_form': profile_form
-    })
+        return render(request, 'profile.html', {
+            'user_form': user_form,
+            'profile_form': profile_form
+        })
+
+    def post(self, request):
+        profile, created = Profile.objects.get_or_create(user=request.user)
+
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST, instance=profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()  
+            profile_form.save()  
+            messages.success(request, 'Votre profil a été mis à jour avec succès.')
+            return redirect('profile')  
+
+        return render(request, 'profile.html', {
+            'user_form': user_form,
+            'profile_form': profile_form
+        })
