@@ -2,13 +2,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-</html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Indeedjango{% endblock %}</title>
-
 
     <link rel="stylesheet" href="{% static 'css/styles.css' %}"> 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -17,27 +14,26 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{% url 'home' %}">Accueil</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <a class="navbar-brand" href="{% url 'home' %}">Indeedjango</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li>
-                    <a class="nav-link" href="{% url 'job_list' %}">Offres</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'job_list' %}"><i class="fas fa-briefcase"></i> Offres</a>
                 </li>
-                <li>
-                    <a class="nav-link" href="{% url 'my_applications' %}">Mes Offres</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'my_applications' %}"><i class="fas fa-file-alt"></i> Mes Offres</a>
                 </li>
-                <li>
-                    <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile' %}"><i class="fas fa-user-circle"></i> Profil</a>
                 </li>
-
                 {% if user.is_authenticated and user.is_superuser %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin">Admin</a>
+                    <a class="nav-link" href="/admin"><i class="fas fa-cog"></i> Admin</a>
                 </li>
                 {% endif %}
             </ul>
@@ -49,12 +45,14 @@
                 <li class="nav-item">
                     <form method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-link nav-link" style="display:inline;">Déconnexion</button>
+                        <button type="submit" class="btn btn-link nav-link" style="display:inline;">
+                            <i class="fas fa-sign-out-alt"></i> Déconnexion
+                        </button>
                     </form>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Connexion</a>
+                    <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Connexion</a>
                 </li>
                 {% endif %}
             </ul>
@@ -66,8 +64,11 @@
         {% if messages %}
         <div class="container mt-3">
             {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
                 {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             {% endfor %}
         </div>
@@ -75,6 +76,12 @@
 
         {% endblock %}
     </div>
+
+    <footer>
+        <div class="text-center">
+            © 2024 Indeedjango - Tous droits réservés
+        </div>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
