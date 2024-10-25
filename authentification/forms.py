@@ -3,12 +3,16 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 class UserRegistrationForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
-    confirm_password = forms.CharField(widget=forms.PasswordInput, label='Confirm Password')
+    password = forms.CharField(widget=forms.PasswordInput, label="Mot de passe")
+    confirm_password = forms.CharField(widget=forms.PasswordInput, label="Confirmer le mot de passe")
 
     class Meta:
         model = User
         fields = ['username', 'email', 'password', 'confirm_password']
+        labels = {
+            'username': "Nom d'utilisateur",
+            'email': "Adresse e-mail",
+        }
 
     def clean(self):
         cleaned_data = super().clean()

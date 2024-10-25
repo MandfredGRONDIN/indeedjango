@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib import messages
 from .models import Job, JobType
 
 class JobAdmin(admin.ModelAdmin):
@@ -9,6 +10,9 @@ class JobAdmin(admin.ModelAdmin):
     ordering = ('-published_date',)
     list_editable = ('is_filled',)
     readonly_fields = ('published_date',)
+    
+    actions = ['mark_as_filled', 'mark_as_unfilled']
+
     fieldsets = (
         ('Informations générales', {
             'fields': ('title', 'description', 'location', 'salary', 'contract_type', 'is_filled')
@@ -24,10 +28,21 @@ class JobAdmin(admin.ModelAdmin):
         }),
     )
 
+    def mark_as_filled(self, request, queryset):
+        updated_count = queryset.update(is_filled=True)
+        self.message_user(request, f"{updated_count} contrat(s) marqué(s) comme pourvu(s).", messages.SUCCESS)
+
+    mark_as_filled.short_description = "Marquer comme pourvu"
+
+    def mark_as_unfilled(self, request, queryset):
+        updated_count = queryset.update(is_filled=False)
+        self.message_user(request, f"{updated_count} contrat(s) marqué(s) comme non pourvu(s).", messages.SUCCESS)
+
+    mark_as_unfilled.short_description = "Marquer comme non pourvu"
+
 class JobTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
     search_fields = ('name',)
-
 
 admin.site.register(Job, JobAdmin)
 admin.site.register(JobType, JobTypeAdmin)
