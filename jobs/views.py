@@ -7,13 +7,24 @@ from authentification.models import Profile
 
 class JobListView(LoginRequiredMixin, View):
     def get(self, request):
-        jobs = Job.objects.all()
+        jobs = Job.objects.filter(is_filled=False)
         return render(request, 'job_list.html', {'jobs': jobs})
+
+class MyApplicationsView(LoginRequiredMixin, View):
+    def get(self, request):
+        profile = get_object_or_404(Profile, user=request.user)
+        applications = Application.objects.filter(profile=profile)
+        return render(request, 'my_apply.html', {'applications': applications})
 
 class JobDetailView(LoginRequiredMixin, View):
     def get(self, request, pk):
         job = get_object_or_404(Job, pk=pk)
-        return render(request, 'job_detail.html', {'job': job})
+        profile = get_object_or_404(Profile, user=request.user)
+        has_applied = Application.objects.filter(job=job, profile=profile).exists()
+        return render(request, 'job_detail.html', {
+            'job': job,
+            'has_applied': has_applied
+        })
 
 class JobApplyView(LoginRequiredMixin, View):
     def get(self, request, pk):

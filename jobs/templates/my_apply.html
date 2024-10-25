@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Mes Candidatures</h1>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Titre de l'Emploi</th>
+                <th scope="col">Location</th>
+                <th scope="col">Type de contrat</th>
+                <th scope="col">Date de Candidature</th>
+                <th scope="col">Statut</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applications %}
+                <tr>
+                    <td>{{ application.job.title }}</td>
+                    <td>{{ application.job.location }}</td>
+                    <td>{{ application.job.contract_type.name }}</td>
+                    <td>{{ application.application_date|date:"d/m/Y" }}</td>
+                    <td>{{ application.get_status_display }}</td>
+                    <td>
+                        <a href="{% url 'job_detail' application.job.pk %}" class="btn btn-info btn-sm">Voir</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">Vous n'avez pas encore postulé à des emplois.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
