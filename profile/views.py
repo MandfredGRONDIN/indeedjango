@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UserUpdateForm, ProfileUpdateForm
-from ..profile.models import Profile
+from .models import Profile
 
 class ProfileView(LoginRequiredMixin, View):
     """

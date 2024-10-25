@@ -3,7 +3,7 @@ from django.views import View
 from .models import Job, Application
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from authentification.models import Profile 
+from profile.models import Profile 
 
 class JobListView(LoginRequiredMixin, View):
     def get(self, request):

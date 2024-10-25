@@ -7,4 +7,5 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('', include('authentification.urls')),
     path('', include('jobs.urls')),
+    path('', include('profile.urls')),
 ]

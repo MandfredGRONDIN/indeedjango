@@ -3,7 +3,7 @@ from django.contrib.auth import login
 from django.views import View
 from .forms import UserRegistrationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from ..profile.models import Profile
+from profile.models import Profile
 
 # Home View
 class HomeView(LoginRequiredMixin, View):

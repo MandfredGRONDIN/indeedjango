@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from authentification.models import Profile 
+from profile.models import Profile 
 
 
 class JobType(models.Model):
